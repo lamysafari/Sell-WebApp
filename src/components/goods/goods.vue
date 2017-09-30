@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>I am goods</div>
+    <div>我是一个 goods</div>
   </div>
 </template>
 
@@ -8,3 +8,7 @@
 export default {
 }
 </script>
+
+<style lang="stylus">
+
+</style>

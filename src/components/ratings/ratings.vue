@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div>我是一个ratings!</div>
+    <div>我是一个ratings!</div>
   </div>
 </template>
 
