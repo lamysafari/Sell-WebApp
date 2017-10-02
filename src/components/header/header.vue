@@ -30,7 +30,7 @@
       <div class="background">
         <img :src="seller.avatar" width="100%" height="100%">
       </div>
-      <div v-show="detailShow" class="detail">
+      <div v-show="detailShow" class="detail" transition="fade">
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
@@ -218,7 +218,14 @@ export default {
       width: 100%
       height: 100%
       overflow: auto
-      background-color: rgba(7, 17, 27, 0.8)
+      transition: all 0.5s
+      backdrop-filter: blur(10px)
+      &.fade-transition
+        opacity: 1
+        background-color: rgba(7, 17, 27, 0.8)
+      &.fade-enter, &.fade-leave
+        opacity: 0
+        background-color: rgba(7, 17, 27, 0.8)
       .detail-wrapper
         min-height: 100%
         width: 100%
