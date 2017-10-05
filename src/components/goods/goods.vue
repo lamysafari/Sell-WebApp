@@ -28,19 +28,24 @@
                   <span class="now">￥{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart v-ref:shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
 import shopcart from '../shopcart/shopcart'
+import cartcontrol from '../cartcontrol/cartcontrol'
+
 const ERR_OK = 0
 export default {
   props: {
@@ -49,7 +54,8 @@ export default {
     }
   },
   components: {
-    shopcart
+    shopcart,
+    cartcontrol
   },
   data() {
     return {
@@ -68,6 +74,17 @@ export default {
         }
       }
       return 0
+    },
+    selectFoods() {
+      let foods = []
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   created() {
@@ -93,13 +110,17 @@ export default {
       this.foodsScroll.scrollToElement(el, 300)
       console.log(index)
     },
+    _drop(target) {
+      this.$refs.shopcart.drop(target)
+    },
     _initScroll() {
       this.menuScroll = new BScroll(this.$els.menuWrapper, {
         click: true
       })
 
       this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
-        probeType: 3
+        probeType: 3,
+        click: true
       })
 
       this.foodsScroll.on('scroll', (pos) => {
@@ -115,6 +136,11 @@ export default {
         height += item.clientHeight
         this.listHeight.push(height)
       }
+    }
+  },
+  event: {
+    'cart.add'(target) {
+      this._drop(target)
     }
   }
 }
@@ -222,4 +248,8 @@ export default {
               text-decoration line-through
               font-size 10px
               color rgb(147, 153, 159)
+          .cartcontrol-wrapper
+            position absolute
+            right 0
+            bottom 12px
 </style>

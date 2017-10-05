@@ -16,6 +16,11 @@
               {{payDesc}}
             </div>
           </div>
+          <div class="ball-container">
+            <div transition="drop" v-for="ball in balls" v-show="ball.show" class="ball">
+              <div class="innner"></div>
+            </div>
+          </div>
       </div>
   </div>
 </template>
@@ -26,10 +31,7 @@ export default {
     selectFoods: {
       type: Array,
       default() {
-        return [{
-          price: 20,
-          count: 1
-        }]
+        return []
       }
     },
     deliveryPrice: {
@@ -37,6 +39,27 @@ export default {
     },
     minPrice: {
       type: Number
+    }
+  },
+  data() {
+    return {
+      balls: [
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        }
+      ]
     }
   },
   computed: {
@@ -70,6 +93,11 @@ export default {
       } else {
         return 'enough'
       }
+    }
+  },
+  methods: {
+    drop(el) {
+      console.log(el)
     }
   }
 }
@@ -163,4 +191,18 @@ export default {
           &.enough
             background #00b43c
             color #fff
+    .ball-container
+      .ball
+        position fixed
+        left: 32px
+        bottom 22px
+        z-index 200
+        &.drop-transition
+          transition all 0.4s
+          .innner
+            width 16px
+            height 16px
+            border-radius 50%
+            background rgb(0, 160, 220)        
+            transition all 0.4s
 </style>
