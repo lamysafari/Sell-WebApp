@@ -17,7 +17,7 @@ export default {
     }
   },
   created() {
-    console.log(this.food)
+    // console.log(this.food)
   },
   methods: {
     addCart(event) {
