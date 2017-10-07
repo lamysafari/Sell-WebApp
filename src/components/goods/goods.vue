@@ -22,7 +22,8 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+                  <span class="count">月售{{food.sellCount}}份</span>
+                  <span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.price}}</span>
@@ -111,7 +112,10 @@ export default {
       console.log(index)
     },
     _drop(target) {
-      this.$refs.shopcart.drop(target)
+      // 优化体验 异步完成动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target)
+      })
     },
     _initScroll() {
       this.menuScroll = new BScroll(this.$els.menuWrapper, {
@@ -138,7 +142,7 @@ export default {
       }
     }
   },
-  event: {
+  events: {
     'cart.add'(target) {
       this._drop(target)
     }
