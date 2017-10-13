@@ -14,7 +14,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li  v-for="food in item.foods" class="food-item border-1px">
+            <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img width="57px" :src="food.icon" alt="">
               </div>
@@ -121,6 +121,7 @@ export default {
       }
       this.selectedFood = food
       this.$refs.food.show()
+      console.log('show')
     },
     _drop(target) {
       // 优化体验 异步完成动画

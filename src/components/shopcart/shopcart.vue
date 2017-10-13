@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import cartcontrol from '../cartcontrol/cartcontrol'
 import BScroll from 'better-scroll'
+import cartcontrol from '../cartcontrol/cartcontrol'
 
 export default {
   props: {
@@ -224,7 +224,6 @@ export default {
     z-index 50
     width 100%
     height 48px
-    
     .content
       display flex
       color rgba(255, 255, 255, 0.4)
@@ -313,7 +312,7 @@ export default {
         z-index 200
         &.drop-transition
           transition all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41)
-          .innner
+          .inner
             width 16px
             height 16px
             border-radius 50%
