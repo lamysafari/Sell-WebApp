@@ -14,7 +14,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item border-1px">
+            <li  v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img width="57px" :src="food.icon" alt="">
               </div>
@@ -22,7 +22,8 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
+                  <span class="count">月售{{food.sellCount}}份</span>
+                  <span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.price}}</span>
@@ -39,12 +40,14 @@
     </div>
     <shopcart v-ref:shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
+  <food :food="selectedFood" v-ref:food></food>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
 import shopcart from '../shopcart/shopcart'
 import cartcontrol from '../cartcontrol/cartcontrol'
+import food from '../food/food'
 
 const ERR_OK = 0
 export default {
@@ -55,13 +58,15 @@ export default {
   },
   components: {
     shopcart,
-    cartcontrol
+    cartcontrol,
+    food
   },
   data() {
     return {
       goods: [],
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      selectedFood: {}
     }
   },
   computed: {
@@ -110,8 +115,18 @@ export default {
       this.foodsScroll.scrollToElement(el, 300)
       console.log(index)
     },
+    selectFood(food, event) {
+      if (!event._constructed) {
+        return
+      }
+      this.selectedFood = food
+      this.$refs.food.show()
+    },
     _drop(target) {
-      this.$refs.shopcart.drop(target)
+      // 优化体验 异步完成动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target)
+      })
     },
     _initScroll() {
       this.menuScroll = new BScroll(this.$els.menuWrapper, {
@@ -138,7 +153,7 @@ export default {
       }
     }
   },
-  event: {
+  events: {
     'cart.add'(target) {
       this._drop(target)
     }
