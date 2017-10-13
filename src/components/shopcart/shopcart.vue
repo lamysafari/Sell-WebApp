@@ -46,8 +46,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import BScroll from 'better-scroll'
 import cartcontrol from '../cartcontrol/cartcontrol'
+=======
+import cartcontrol from '../cartcontrol/cartcontrol'
+import BScroll from 'better-scroll'
+>>>>>>> 8a754ca258ca4809c58e9eaf891216e670a3aee0
 
 export default {
   props: {
@@ -194,7 +199,11 @@ export default {
         let rf = el.offsetHeight
         this.$nextTick(() => {
           el.style.webkitTransform = 'translate3d(0,0,0)'
+<<<<<<< HEAD
           el.style.transform = 'translate3d(0,0,0)'
+=======
+          el.style.trransform = 'translate3d(0,0,0)'
+>>>>>>> 8a754ca258ca4809c58e9eaf891216e670a3aee0
           let inner = el.getElementsByClassName('inner-hook')[0]
           inner.style.webkitTransform = 'translate3d(0,0,0)'
           inner.style.transform = 'translate3d(0,0,0)'
@@ -224,6 +233,10 @@ export default {
     z-index 50
     width 100%
     height 48px
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 8a754ca258ca4809c58e9eaf891216e670a3aee0
     .content
       display flex
       color rgba(255, 255, 255, 0.4)
@@ -312,7 +325,11 @@ export default {
         z-index 200
         &.drop-transition
           transition all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41)
+<<<<<<< HEAD
           .inner
+=======
+          .innner
+>>>>>>> 8a754ca258ca4809c58e9eaf891216e670a3aee0
             width 16px
             height 16px
             border-radius 50%
